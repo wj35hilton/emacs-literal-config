@@ -81,3 +81,4 @@
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "yaml-mode")
+(depends-on "zenburn-theme")

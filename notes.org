@@ -1,0 +1,11 @@
+ install flake8 with pip install flake8
+ install pylint by downloading tarball from https://pypi.python.org/packages/source/p/pylint/ and
+  gunzip pylint-1.4.1.tar.gz
+  tar xopf pylint-1.4.1.tar
+  sudo python setup.py install
+  (installed in ~/packages)
+  use flycheck-verify-setup to see what checkers are properly hooked
+comment out Inconsolata font in emacs.el
+  still don't know how emacs.el is kept in vc
+
+

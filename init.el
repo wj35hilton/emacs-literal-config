@@ -1,4 +1,5 @@
-(require 'cask "~/.cask/cask.el")
+;(require 'cask "~/.cask/cask.el")
+(require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
 (cask-initialize)
 
 (when (not (cl-remove-if-not 
@@ -14,4 +15,9 @@
 (require 'pallet)
 
 (org-babel-load-file "~/.emacs.d/emacs.org")
+
+(load-theme 'zenburn)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 
