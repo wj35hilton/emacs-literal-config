@@ -16,8 +16,41 @@
 
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
+
+;;; Blaine's stuff
+
 (load-theme 'zenburn)
+(custom-set-faces
+ '(magit-diff-none ((t (:foreground "white"))))
+ '(magit-item-highlight ((t (:background "grey44"))))
+ '(minibuffer-prompt ((t (:foreground "black")))))
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+(custom-set-faces
+ '(cursor ((t (:background "magenta1" :foreground "magenta")))))
 
+;(set-cursor-color "#48d1cc")
+
+;; Colors in terminal
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; default window width and height
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 45))
+  (add-to-list 'default-frame-alist '(width . 110)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
+;; Backup
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
+(setq make-backup-files nil)
+
+(global-set-key (kbd "C-c b") 'magit-blame-mode)
+
+'(show-paren-mode t)
