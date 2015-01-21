@@ -23,17 +23,8 @@
 (custom-set-faces
  '(magit-diff-none ((t (:foreground "white"))))
  '(magit-item-highlight ((t (:background "grey44"))))
- '(minibuffer-prompt ((t (:foreground "black")))))
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(custom-set-faces
+ '(minibuffer-prompt ((t (:foreground "brown"))))
  '(cursor ((t (:background "magenta1" :foreground "magenta")))))
-
-;(set-cursor-color "#48d1cc")
-
-;; Colors in terminal
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; default window width and height
 (defun custom-set-frame-size ()
@@ -41,6 +32,11 @@
   (add-to-list 'default-frame-alist '(width . 110)))
 (custom-set-frame-size)
 (add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
+;; Colors in terminal
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; Backup
 (setq backup-directory-alist `(("." . "~/.saves")))
@@ -54,3 +50,5 @@
 (global-set-key (kbd "C-c b") 'magit-blame-mode)
 
 '(show-paren-mode t)
+
+(add-hook 'after-init-hook #'show-paren-mode)
