@@ -17,38 +17,38 @@
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
 
-;;; Blaine's stuff
+;;; Blaine's stuff (now in org file)
 
-(load-theme 'zenburn)
-(custom-set-faces
- '(magit-diff-none ((t (:foreground "white"))))
- '(magit-item-highlight ((t (:background "grey44"))))
- '(minibuffer-prompt ((t (:foreground "brown"))))
- '(cursor ((t (:background "magenta1" :foreground "magenta")))))
+;; (load-theme 'zenburn)
+;; (custom-set-faces
+;;  '(magit-diff-none ((t (:foreground "white"))))
+;;  '(magit-item-highlight ((t (:background "grey44"))))
+;;  '(minibuffer-prompt ((t (:foreground "brown"))))
+;;  '(cursor ((t (:background "magenta1" :foreground "magenta")))))
 
-;; default window width and height
-(defun custom-set-frame-size ()
-  (add-to-list 'default-frame-alist '(height . 45))
-  (add-to-list 'default-frame-alist '(width . 110)))
-(custom-set-frame-size)
-(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+;; ;; default window width and height
+;; (defun custom-set-frame-size ()
+;;   (add-to-list 'default-frame-alist '(height . 45))
+;;   (add-to-list 'default-frame-alist '(width . 110)))
+;; (custom-set-frame-size)
+;; (add-hook 'before-make-frame-hook 'custom-set-frame-size)
 
-;; Colors in terminal
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+;; ;; Colors in terminal
+;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
-;; Backup
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq backup-by-copying t)
-(setq delete-old-versions t
-  kept-new-versions 6
-  kept-old-versions 2
-  version-control t)
-(setq make-backup-files nil)
+;; ;; Backup
+;; (setq backup-directory-alist `(("." . "~/.saves")))
+;; (setq backup-by-copying t)
+;; (setq delete-old-versions t
+;;   kept-new-versions 6
+;;   kept-old-versions 2
+;;   version-control t)
+;; (setq make-backup-files nil)
 
-(global-set-key (kbd "C-c b") 'magit-blame-mode)
+;; (global-set-key (kbd "C-c b") 'magit-blame-mode)
 
-'(show-paren-mode t)
+;; '(show-paren-mode t)
 
-(add-hook 'after-init-hook #'show-paren-mode)
+;; (add-hook 'after-init-hook #'show-paren-mode)

@@ -1,6 +1,7 @@
 #+TITLE: Making Emacs Work For Me
-#+AUTHOR: Joost Diepenmaat
-#+EMAIL: joost@zeekat.nl
+#+ORIGINAL AUTHOR: Joost Diepenmaat
+#+TWEAKED BY: blaino
+
 
 
 * Configuring Emacs: A Yak Shaving Diary
@@ -31,7 +32,10 @@
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
   - Start Emacs
+** Modifying the emacs.org file
 
+  - run (org-babel-load-file "~/.emacs.d/emacs.org") which can be
+    found in init.el
 ** Issues installing
 
   - Emacs failing to load pallet can indicate that ~cask~ is
@@ -40,12 +44,27 @@
 
 * Graphics and looks
 ** Color theme
-   Leuven theme is awesome!
+   Leuven theme is awesome!  But zenburn is better.
 
-   #+name: look-and-feel
-   #+BEGIN_SRC emacs-lisp
-     (load-theme 'leuven)
-   #+END_SRC
+#+name: look-and-feel
+#+BEGIN_SRC emacs-lisp
+;(load-theme 'leuven)
+(load-theme 'zenburn)
+
+(custom-set-faces
+  '(magit-diff-none ((t (:foreground "white"))))
+  '(magit-item-highlight ((t (:background "grey44"))))
+  '(minibuffer-prompt ((t (:foreground "brown"))))
+  '(cursor ((t (:background "magenta1" :foreground "magenta")))))
+
+;; default window width and height
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 45))
+  (add-to-list 'default-frame-alist '(width . 110)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
+#+END_SRC
 
 ** Font
 
@@ -56,7 +75,7 @@
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
                          :family "Inconsolata"
-                         :height 130
+                         :height 140
                          :weight 'normal
                          :width 'normal)
 
@@ -227,7 +246,9 @@
 * Programming
 ** General programming
 
-   I want to use pretty-symbols mode for all programming.
+   I want to use pretty-symbols mode for all programming.  I want
+   flycheck to be on everywhere.  And, I want show-paren-mode on, but
+   it seems like something is turning it off.
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -236,6 +257,11 @@
 
      (add-hook 'prog-mode-hook
                'my/prog-mode-hooks)
+
+     (add-hook 'after-init-hook #'global-flycheck-mode)
+
+     ;'(show-paren-mode t)
+     (add-hook 'after-init-hook #'show-paren-mode)
    #+END_SRC
 
 ** Pair programming
@@ -319,7 +345,7 @@
      (add-hook 'cider-mode-hook
                'my/cider-mode-hooks)
    #+END_SRC
-   
+
    Clojure-specific enhancements to lisp config.
 
    #+NAME: programming-setup
@@ -346,8 +372,6 @@
           (add-hook 'cider-repl-mode-hook
                     'my/cider-repl-mode-hooks)
    #+END_SRC
-
-   
 
 ** Ruby
    Tell Emacs rake files are Ruby files.
@@ -400,7 +424,6 @@
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
    #+END_SRC
-
 
 ** Compilation mode improvements
 
@@ -461,6 +484,7 @@
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
+    (global-set-key (kbd "C-c b") 'magit-blame-mode)
     (global-set-key "\C-cq" 'delete-indentation)
   #+END_SRC
 
@@ -700,10 +724,11 @@
    #+END_SRC
 
 * Other libraries
-  Loading ~dired+~ improves ~dired~.
+  Loading ~dired+~ improves ~dired~, but it defaults to showing too
+  little, so commenting it out.  
   #+name: libraries
   #+BEGIN_SRC emacs-lisp
-    (require 'dired+)
+    ; (require 'dired+)
   #+END_SRC
 * Configuration file layout
 
@@ -780,6 +805,21 @@
 
    #+END_SRC
 
+** Backup
+
+  Not sure if this stuff right.
+
+   #+name: tools
+   #+BEGIN_SRC emacs-lisp
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
+(setq make-backup-files nil)
+   #+END_SRC
+  
 * Environment
 
   OSX doesn't set the environment from the shell init files for
@@ -799,8 +839,6 @@
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path "~/.emacs.d/ext")
   #+END_SRC
-
-
 * Options set using the customize interface
 
   By default, Emacs saves the options you set via the `customize-*`
