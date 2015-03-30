@@ -260,6 +260,8 @@
 
      (add-hook 'after-init-hook #'global-flycheck-mode)
 
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
      ;'(show-paren-mode t)
      (add-hook 'after-init-hook #'show-paren-mode)
    #+END_SRC
@@ -818,8 +820,9 @@
   kept-old-versions 2
   version-control t)
 (setq make-backup-files nil)
+
    #+END_SRC
-  
+
 * Environment
 
   OSX doesn't set the environment from the shell init files for

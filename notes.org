@@ -5,7 +5,6 @@
   sudo python setup.py install
   (installed in ~/packages)
   use flycheck-verify-setup to see what checkers are properly hooked
-comment out Inconsolata font in emacs.el
-  still don't know how emacs.el is kept in vc
+
 
 
