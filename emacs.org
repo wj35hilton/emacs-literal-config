@@ -32,10 +32,12 @@
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
   - Start Emacs
+
 ** Modifying the emacs.org file
 
   - run (org-babel-load-file "~/.emacs.d/emacs.org") which can be
     found in init.el
+
 ** Issues installing
 
   - Emacs failing to load pallet can indicate that ~cask~ is
@@ -69,7 +71,8 @@
 ** Font
 
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
-   characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
+   characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those. Download
+   Inconsolata at http://www.fontsquirrel.com/fonts/inconsolata.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -198,14 +201,25 @@
      (when (not (window-system))
        (xterm-mouse-mode +1))
    #+END_SRC
-   
+
 * Start up
+** Emacs set up
 
   Start with the scratch buffer; no start up screen.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
+  #+END_SRC
+
+** Shell set up
+
+  A GNU Emacs library to ensure environment variables inside Emacs look the same as in the user's shell.
+
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
   #+END_SRC
 
 * Formatting and white-space
@@ -727,7 +741,7 @@
 
 * Other libraries
   Loading ~dired+~ improves ~dired~, but it defaults to showing too
-  little, so commenting it out.  
+  little, so commenting it out.
   #+name: libraries
   #+BEGIN_SRC emacs-lisp
     ; (require 'dired+)
