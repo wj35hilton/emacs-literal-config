@@ -83,3 +83,4 @@
 (depends-on "yaml-mode")
 (depends-on "zenburn-theme")
 (depends-on "exec-path-from-shell")
+(depends-on "groovy-mode")

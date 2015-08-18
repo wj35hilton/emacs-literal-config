@@ -430,6 +430,36 @@
      (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
    #+END_SRC
 
+   To reduce typing.
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+   (defun my-console-log ()
+      "Insert empty console log statement."
+      (interactive)
+      (insert "console.log('',);")
+      (backward-char 4)
+      (js-indent-line))
+
+   (global-set-key (kbd "C-x C-1") 'my-console-log)
+
+   (defun my-anon-function ()
+      "Insert empty anonymous function."
+      (interactive)
+      (insert "function () {};")
+      (backward-char 2)
+      (js-indent-line))
+
+   (global-set-key (kbd "C-x C-2") 'my-anon-function)
+   #+END_SRC
+
+
+** Groovy
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
+   #+END_SRC
+
 ** JSON
 
    For JSON-formatted files, I use the default js-mode, which accepts
