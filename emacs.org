@@ -438,7 +438,7 @@
       (interactive)
       (insert "console.log('',);")
       (backward-char 4)
-      (js-indent-line))
+      (js2-indent-line))
 
    (global-set-key (kbd "C-x C-1") 'my-console-log)
 
@@ -447,11 +447,10 @@
       (interactive)
       (insert "function () {};")
       (backward-char 2)
-      (js-indent-line))
+      (js2-indent-line))
 
    (global-set-key (kbd "C-x C-2") 'my-anon-function)
    #+END_SRC
-
 
 ** Groovy
 
@@ -486,6 +485,15 @@
        (toggle-read-only))
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
     #+END_SRC
+
+    Trying to get the regular emacs shell colorized. Currently not
+    working  - it will colorize the history but not current stuff...
+
+    #+name: programming-setup
+    #+BEGIN_SRC emacs-lisp
+     (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+    #+END_SRC
+
 
 *** Follow output
 
