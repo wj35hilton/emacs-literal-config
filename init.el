@@ -14,6 +14,9 @@
   (message "No org-mode package found; installing now...")
   (package-install 'org))
 
+;; You had to do this to get new packages in Cask to install:
+; cask install
+
 (require 'org)
 (when (string-match "^[1234567]" (org-version))
   (warn "Org-Mode is out of date. We expect org 8 or higher, but instead we have %s" (org-version)))
@@ -22,5 +25,4 @@
 
 ;; Configure emacs in the org file
 (org-babel-load-file "~/.emacs.d/emacs.org")
-
 ;;; init.el ends here

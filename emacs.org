@@ -38,6 +38,9 @@
   - run (org-babel-load-file "~/.emacs.d/emacs.org") which can be
     found in init.el
 
+  - If you're trying to install a new package, you've had to run `cask
+    install`. See init.el. Doubt that's the way it's supposed to be.
+
 ** Issues installing
 
   - Emacs failing to load pallet can indicate that ~cask~ is
@@ -427,7 +430,22 @@
    I use JS2-mode for javascript source.
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+   #+END_SRC
+
+
+   Handling jsx:
+   https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking/
+   Currently only doing the syntax highlighting - no jsxhint
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+   (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+   (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "jsx")
+         (let ((web-mode-enable-part-face nil))
+           ad-do-it)
+        ad-do-it))
    #+END_SRC
 
    To reduce typing.
