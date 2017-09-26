@@ -1,6 +1,7 @@
 #+TITLE: Making Emacs Work For Me
 #+ORIGINAL AUTHOR: Joost Diepenmaat
 #+TWEAKED BY: blaino
+#+TWEAKED BY: whilton
 
 
 
@@ -59,8 +60,9 @@
 (custom-set-faces
   '(magit-diff-none ((t (:foreground "white"))))
   '(magit-item-highlight ((t (:background "grey44"))))
-  '(minibuffer-prompt ((t (:foreground "brown"))))
-  '(cursor ((t (:background "magenta1" :foreground "magenta")))))
+  '(minibuffer-prompt ((t (:foreground "orange red"))))
+  '(cursor ((t (:background "magenta1" :foreground "magenta"))))
+  '(aw-leading-char-face ((t (:foreground "red" :height 3.0)))))
 
 ;; default window width and height
 (defun custom-set-frame-size ()
@@ -77,11 +79,35 @@
    characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those. Download
    Inconsolata at http://www.fontsquirrel.com/fonts/inconsolata.
 
+   TODO: add code to adjust font size based on monitor ...
+         look into (display-monitor-attributes-list)
+
+   results look like: (((geometry 0 0 1440 900) (workarea 0 23 1440 821)
+   (mm-size 331 207) (frames) (name . "Color LCD")
+   (backing-scale-factor . 2)) ((geometry 1440 -641 1920 1080)
+   (workarea 1440 -641 1920 1080) (mm-size 595 335) (frames #<frame
+   Emacs@C02SG45FG8WN.local 0x107164438>) (name . "BenQ GL2760")
+   (backing-scale-factor . 1)))
+
+   see: http://emacs.stackexchange.com/questions/18188/different-font-heights-for-each-emacs-frame
+
+   maybe something like:
+
+  (defun set-font-for-frame (frame)
+  (interactive)
+  (if (string-equal "BenQ GL2760" (cdr (assq 'name (frame-monitor-attributes))))
+      (set-face-attribute 'default nil
+                          :height 120)
+    (set-face-attribute 'default nil
+                        :height 140)))
+
+  (add-hook 'window-size-change-functions 'set-font-for-frame t)
+
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
                          :family "Inconsolata"
-                         :height 140
+                         :height 120
                          :weight 'normal
                          :width 'normal)
 
@@ -183,6 +209,11 @@
    Using sticky windows means I can keep a selected window visible
    (using "C-x 9") when deleting windows (with "C-x 0" and "C-x 1").
 
+   Using ace-window for window nav.
+
+   Note ... may remove the sticky windows settings or (better) figure
+   it out with ace-window.
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (require 'sticky-windows)
@@ -191,6 +222,10 @@
      (global-set-key     [(control x) (?1)]        'sticky-window-delete-other-windows)
      (global-set-key     [(control x) (?9)]        'sticky-window-keep-window-visible)
 
+     (global-set-key (kbd "C-;") 'ace-window)
+     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
+     (ace-window-display-mode)
    #+END_SRC
 
 ** Window systems and terminals.
@@ -270,7 +305,8 @@
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
      (defun my/prog-mode-hooks ()
-       (my/turn-on 'pretty-symbols))
+       (my/turn-on 'pretty-symbols)
+       (my/turn-on 'hs-minor-mode))
 
      (add-hook 'prog-mode-hook
                'my/prog-mode-hooks)
@@ -488,6 +524,14 @@
      (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
    #+END_SRC
 
+** Scala
+
+   For scala, I'm using ensime -- doesn't seem to require any
+   additional setup beyond specifying it in the Cask file.
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+   #+END_SRC
 ** Compilation mode improvements
 
 *** ANSI Colors
@@ -519,6 +563,12 @@
     #+BEGIN_SRC emacs-lisp
      (setq compilation-scroll-output t)
     #+END_SRC
+* SQL
+** Postgres
+
+   TODO: Need to add:
+     (add-to-list 'sql-postgres-login-params '(port :default 5432))
+
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
