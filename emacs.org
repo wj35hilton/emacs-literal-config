@@ -171,6 +171,12 @@
      (setq sml/shorten-modes t)
    #+END_SRC
 
+   I like to know what time it is
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (display-time-mode 1)
+   #+END_SRC
+
 ** Scrolling behavior
 
    Emacs's default scrolling behavior, like a lot of the default
@@ -568,6 +574,7 @@
 
    TODO: Need to add:
      (add-to-list 'sql-postgres-login-params '(port :default 5432))
+     (add-to-list 'sql-mysql-login-params '(port :default 3306))
 
 * TODO Auto Complete
 
@@ -704,6 +711,18 @@
 
    #+END_SRC
 
+   Set up custom org templates
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                    (file+headline "~/gtd/inbox.org" "Tasks")
+                                    "* TODO %i%?")
+                                   ("T" "Tickler" entry
+                                    (file+headline "~/gtd/tickler.org" "Tickler")
+                                    "* %i%? \n %U")))
+   #+END_SRC
+
    Automatically mark todo items with todo subitems as DONE when all
    subitems are done.
 
@@ -716,6 +735,16 @@
          (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
      (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+
+   #+END_SRC
+
+   List of GTD agenda files.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+   (setq org-agenda-files '("~/gtd/inbox.org"
+                            "~/gtd/gtd.org"
+                            "~/gtd/tickler.org"))
 
    #+END_SRC
 

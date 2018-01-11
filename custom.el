@@ -14,12 +14,13 @@
  '(js2-basic-offset 4)
  '(package-selected-packages
    (quote
-    (ace-window switch-window epresent org zenburn-theme yaml-mode web-mode smex smartparens smart-mode-line slamhound rvm rspec-mode rinari rhtml-mode rainbow-delimiters projectile pretty-symbols powerline plantuml-mode paredit pallet org-plus-contrib markdown-mode magit litable leuven-theme less-css-mode json-mode js2-mode ido-yes-or-no htmlize highlight-parentheses groovy-mode graphviz-dot-mode git-gutter-fringe git fuzzy flycheck exec-path-from-shell efire discover dired+ csv-mode company command-log-mode coffee-mode clojurescript-mode cljsbuild-mode cider-decompile auto-complete))))
+    (haskell-mode restclient ace-window switch-window epresent org zenburn-theme yaml-mode web-mode smex smartparens smart-mode-line slamhound rvm rspec-mode rinari rhtml-mode rainbow-delimiters projectile pretty-symbols powerline plantuml-mode paredit pallet org-plus-contrib markdown-mode magit litable leuven-theme less-css-mode json-mode js2-mode ido-yes-or-no htmlize highlight-parentheses groovy-mode graphviz-dot-mode git-gutter-fringe git fuzzy flycheck exec-path-from-shell efire discover dired+ csv-mode company command-log-mode coffee-mode clojurescript-mode cljsbuild-mode cider-decompile auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:foreground "red" :height 3.0))))
  '(cursor ((t (:background "magenta1" :foreground "magenta"))))
  '(magit-diff-none ((t (:foreground "white"))))
  '(magit-item-highlight ((t (:background "grey44"))))
